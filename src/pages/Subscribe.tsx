@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Icon } from "../components/Icon";
 import { useCreateSubscriberMutation } from "../graphql/generated"
 
-import ReactJSICon from "../assets/ReactJS-icon.png"
+import ReactJSICon from "../assets/ReactJSIcon.png"
 import codeMockup from "../assets/codeMockup.png"
 
 

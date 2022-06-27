@@ -1,8 +1,11 @@
-import { gql, useMutation } from "@apollo/client";
 import { useState, FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { Icon } from "../components/Icon";
 import { useCreateSubscriberMutation } from "../graphql/generated"
+
+import ReactJSICon from "../assets/ReactJS-icon.png"
+import codeMockup from "../assets/codeMockup.png"
+
 
 export function Subscribe() {
   const navigate = useNavigate()
@@ -28,7 +31,7 @@ export function Subscribe() {
   return (
     <div className="min-h-screen bg-blur bg-cover bg-no-repeat flex flex-col items-center">
       <img 
-          src="/src/assets/ReactJS-icon.png" alt="foto do teste" className="absolute" 
+          src={ReactJSICon} alt="foto do teste" className="absolute" 
         />
       <div className="static w-full max-w-[1100px] flex items-center justify-between mt-20 mx-auto">
         
@@ -68,7 +71,7 @@ export function Subscribe() {
         </div>
       </div>
 
-      <img src="/src/assets/code-mockup.png" alt="foto do teste" className="static mt-10" />
+      <img src={codeMockup} alt="foto do teste" className="static mt-10" />
     </div>
   )
 }

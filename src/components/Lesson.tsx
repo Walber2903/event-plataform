@@ -1,14 +1,13 @@
 import { CheckCircle, Lock } from 'phosphor-react'
 import { isPast, format } from 'date-fns'
 import ptBR from 'date-fns/locale/pt-BR'
-import pt from 'date-fns/esm/locale/pt/index.js';
 import { Link, useParams } from 'react-router-dom';
 
 interface LessonProps {
   title: string;
   slug: string;
   availableAt: Date;
-  type: 'Live' | 'Class'
+  type: 'live' | 'class'
 }
 
 export function Lesson(props: LessonProps) {
@@ -43,7 +42,7 @@ export function Lesson(props: LessonProps) {
           )}
 
           <span className="text-xs rounded py-[0.125rem] px-2 text-white border border-green-300 font-bold">
-            {props.type == 'Live' ? 'Ao Vivo' : 'Aula Prática'}
+            {props.type == 'live' ? 'Ao Vivo' : 'Aula Prática'}
           </span>
         </header>
 

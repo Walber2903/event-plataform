@@ -2,14 +2,33 @@ import { DefaultUi, Player, Youtube } from "@vime/react";
 import { CaretRight, DiscordLogo, FileArrowDown, Lightning } from "phosphor-react";
 
 import '@vime/core/themes/default.css'
+import { useGetLessonBySlugQuery } from "../graphql/generated";
 
-export function Video() {
+interface VideoProps {
+  lessonSlug: string;
+}
+
+export function Video(props: VideoProps) {
+  const { data } = useGetLessonBySlugQuery({
+    variables: {
+      slug: props.lessonSlug,
+    }
+  })
+
+  if (!data || !data.lesson) {
+    return (
+      <div className="flex-1">
+        <p>Loading....</p>
+      </div>
+    )
+  }
+
   return (
     <div className="flex-1">
       <div className="bg-black flex justify-center">
         <div className="h-full w-full max-w-[1100px] max-h-[60vh] aspect-video bg-red-600">
           <Player>
-            <Youtube videoId="SO4-izct7Mc"/>
+            <Youtube videoId={data.lesson.videoId}/>
             <DefaultUi />
           </Player>
         </div>
@@ -18,22 +37,30 @@ export function Video() {
       <div className="p-8 max-w-[1100px] mx-auto">
         <div className="flex items-start gap-16">
           <div className="flex-1">
-            <h1 className="text-2xl font-bold">Aula 01 - Abertura do curso</h1>
+            <h1 className="text-2xl font-bold">
+              {data.lesson.title}
+            </h1>
             <p className="mt-4 text-gray-200 leading-relaxed">
-              Em linguística, a noção de texto é ampla e ainda aberta a uma definição mais precisa. Grosso modo, pode ser entendido como manifestação linguística das ideias de um autor, que serão interpretadas pelo leitor de acordo com seus conhecimentos linguísticos e culturais.
+              {data.lesson.description}
             </p>
 
-            <div className="flex items-center gap-4 mt-6">
+          {data.lesson.teacher && (
+              <div className="flex items-center gap-4 mt-6">
               <img 
                 className="h-16 w-16 rounded-full border-2 border-blue-500"
-                src="https://github.com/Walber2903.png" 
+                src={data.lesson.teacher.avatarURL} 
                 alt="Foto de perfil" 
               />
               <div className="leading-relaxed">
-                <strong className="font-bold text-2xl block">Walber Araujo</strong>
-                <span className="text-gray-200 text-sm block">Dev Studant</span>
+                <strong className="font-bold text-2xl block">
+                  {data.lesson.teacher.name}
+                </strong>
+                <span className="text-gray-200 text-sm block">
+                  {data.lesson.teacher.bio}
+                </span>
               </div>
             </div>
+          )}
           </div>
         
           <div className="flex flex-col gap-4">
